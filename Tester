@@ -1,0 +1,170 @@
+import java.util.Scanner;
+
+public class Tester {
+	
+		
+			
+		static Scanner scanner = new Scanner(System.in);
+
+        static VendingMachine vendingMachine = new VendingMachine();
+
+		private static int coin;
+        /**
+
+         * method to fill the vending machine with initial set of products
+
+         */
+
+         static void fillInitialProducts() {
+        	//defining some products
+
+             Product p1 = new Product(111, "Tea", 3.00, 10);
+
+             Product p2 = new Product(112, "Coke", 2.50, 5);
+
+             Product p3 = new Product(113, "Snack", 1.50, 10);
+
+             Product p4 = new Product(114, "Protein Bar", 2.00, 4);
+
+             Product p5 = new Product(115, "Scantron", 0.25, 10);
+
+             Product p6 = new Product(116, "Pencil", 1.00, 2);
+
+             //adding to the machine
+
+             vendingMachine.addProduct(p1);
+
+             vendingMachine.addProduct(p2);
+
+             vendingMachine.addProduct(p3);
+
+             vendingMachine.addProduct(p4);
+
+             vendingMachine.addProduct(p5);
+
+             vendingMachine.addProduct(p6);
+         }
+         
+        
+         public static void main(String[] args) {
+             int id = 0;
+             int coins = 0;
+             Scanner choice;
+             String option="", copt="";
+             int a;
+             int qty=0;
+             double input = 0;
+            
+     
+             
+             fillInitialProducts();//filling initial products
+             System.out.println("Welcome to Smart Vending Machine @ CSULB");
+             while(!((option.equals("Q")) || (option.equals("q")))) {
+            	 
+     			System.out.println("S)how products  I)nsert coins  B)uy  A)dd products  R)emove coins  Q)uit");	
+     			System.out.print("Enter a character: ");
+     			choice = new Scanner(System.in);
+     			option= choice.next();
+
+     				if(option.equals("S") || option.equals("s")) {
+     					System.out.println(vendingMachine.getProductMenu());}
+     				
+     				else if(option.equals("I") || option.equals("i")) {
+     				
+     					System.out.println("A) nickel @ 0.05");
+     					System.out.println("B) dime @ 0.1");
+     					System.out.println("C) quarter @ 0.25");
+     					System.out.println("D) dollar @ 1.00");
+     					String done="";
+     					//while(done!="cancel") {
+     		
+     						try{
+     	     					
+     	     					System.out.print("Enter a character: ");
+     	     					scanner = new Scanner(System.in);
+     	     					copt = scanner.nextLine();
+     	     					char c = copt.charAt(0);
+     	     					System.out.print("How many coin: ");
+     	     					scanner = new Scanner(System.in);
+     	     					a = scanner.nextInt();
+     	     					coin = a;
+     	     					
+     	     						if(c=='a') {
+     	     							input= 0.05*coin;
+     	     						}
+     	     						else if(c=='b') {
+     	     							input=0.1*coin;
+     	     						}
+     	     						else if(c=='c') {
+     	     							input=0.25*coin;
+     	     						}
+     	     						else {
+     	     							input=1*coin;
+     	     						}
+     	     						System.out.println("You inserted $"+input);}//end while}
+     	     					
+     	     					catch(Exception message){
+     	     						System.out.println("To cancel transaction, please enter cancel!");
+     	     					}//end catch
+     	     					//}//end while
+     					}
+   
+         	
+     				
+     				else if(option.equals("B")|| option.equals("b")) {
+     					
+     					System.out.println(vendingMachine.getProductMenu());
+     					System.out.print("\nEnter the id of the product" + " you want to buy(enter -1 to quit): ");
+     					id = scanner.nextInt();
+     	                 
+     					System.out.print("\nHow many items do you want to get? ");
+     					Scanner n = new Scanner(System.in);
+     					Product.num = scanner.nextInt();
+     					
+     	                 if (id != -1) {
+     	                	 if (vendingMachine.getProductIndex(id) == -1) {
+     	                		 System.out.println("Product with given id does not exist!");
+     	                	} else {
+     	                                 
+     	                	
+                                  if (vendingMachine.buyProduct(id, input)) {
+                                	 
+                                                  System.out.println("Product bought successfully!");
+                                                  System.out.println("Thank you. Have a good day!");
+
+                                  } else {
+
+                                                  System.out.println("Insufficient coins "
+
+                                                                                  + "/ Product out of stock");
+
+                                                  System.out.println("Dispensing $" + input
+
+                                                                                  + " out!");//returning the coins
+                                                  }
+
+                             }
+
+             }
+
+     	}//end else if
+     				else if(option.equals("A") || option.equals("a")) {
+     					System.out.println("Enter id: ");
+     					Scanner o = new Scanner(System.in);
+     					int h = o.nextInt();
+     					System.out.print("Add Quantity: ");
+     					Scanner s = new Scanner(System.in);
+     					int q = s.nextInt();
+     					vendingMachine.reStock(h, q);
+						
+     				}//end if
+     				else if(option.equals("R") || option.equals("r"))
+     				{System.out.println("Total coins received: $" + vendingMachine.getRevenue());
+     					vendingMachine.resetRevenue();}//end else if
+     				else {
+     					return;}
+     
+             }
+         }
+         }//end class
+
