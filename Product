@@ -1,0 +1,88 @@
+
+public class Product {
+	String name;
+	int quantity;
+	double price;
+	int id;
+	static int num;
+	public Product() {}
+	public Product(int id,String n, double pr, int qty) {
+		this.id = id;
+		this.name = n;
+		this.quantity = qty;
+		this.price = pr;
+		
+	}
+	/**
+	 * This method sets product's id
+	 * @param id - product's id
+	 */
+	public void setId(int id) {
+		this.id =id;
+	}
+	/**
+	 * 
+	 * @return product's id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * This method sets product's name
+	 * @param n - product's name
+	 */
+	public void setName(String n) {
+		this.name = n;
+	}
+	/**
+	 * 
+	 * @return product's name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * This method sets the product's price
+	 * @param pr - product's price
+	 */
+	public void setPrice(double pr) {
+		this.price = pr;
+	}
+	/**
+	 * 
+	 * @return product's price
+	 */
+	public double getPrice() {
+		return price;
+	}
+	/**
+	 * This method sets product's quantity
+	 * @param d - product's quantity
+	 */
+	public void setQuantity(int d) {
+		this.quantity = d;
+	}
+	/**
+	 * 
+	 * @return the product's quantity
+	 */
+	public int getQuantity() {
+		return quantity;
+	}
+	/**
+	 * This method reduce product's quantity by 1 after every purchase
+	 */
+	 public void buy() {
+		 quantity -= num;
+         //if the quantity is less than 0, set it as 0 because the quantity cannot be negative
+         if (quantity < 0) {
+        	 quantity = 0;
+         }
+ }
+
+	public String toString() {
+		return this.getName() +" @ "+this.getPrice();
+	}
+	
+
+}
