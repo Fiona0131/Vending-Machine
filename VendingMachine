@@ -1,0 +1,118 @@
+import java.util.ArrayList;
+
+public class VendingMachine {
+	
+	static ArrayList<Product> products = new ArrayList<Product>();// list of products
+	int totalCoins;// total coins in the vending machine
+    
+	/**
+	 * default constructor
+	 */
+	public VendingMachine() {
+		totalCoins = 0;// initial coins=0     
+	 }                           
+		
+     /**
+      * This method add products into the product list                        
+      * @param p - product
+      */
+	public void addProduct(Product p) {
+		products.add(p);}
+	
+	/**
+	 * 
+	 * @param id - the id of product
+	 * @param input - inserted coins
+	 * @return 
+	 */
+	public boolean buyProduct(int id, double input) {
+			int index = getProductIndex(id);//assign the order of product by using its id
+			if (index != -1) {
+				// product exists if its quantiy is larger than 0
+					if (products.get(index).getQuantity() > 0) {
+						//if 
+						if(products.get(index).getQuantity()>=Product.num) {
+					// if the product's price is less than inserted coins, then transaction occurs
+						if (products.get(index).getPrice()*Product.num <= input) {
+
+                            products.get(index).buy();// buying
+
+                            totalCoins += input;// updating coins by adding inserted coins
+
+                            return true;}
+						}
+						else {
+							System.out.println("Product does not have enough quantity for your order!");
+						}
+					}//end if
+			}//end if(index!=1)
+			
+            //return false because of sufficient coins or out-of-stock product       
+			return false;}//end method
+
+			/**
+			 * 
+			 * @param id -product's id
+			 * @param newQuantity - new quantity of product after restock
+			 */
+
+        	public void reStock(int id, int newQuantity) {
+        		int index = getProductIndex(id);
+        		if (index != -1) {
+                products.get(index).setQuantity(newQuantity);}
+                        
+        		}
+        	
+             /**
+              * 
+              * @return total number of inserted coins
+              */
+
+                public int getRevenue() {
+                	return totalCoins;}
+             /**
+              * set the revenue to 0 after removing coins
+              */
+
+                public void resetRevenue() {
+                	totalCoins = 0;}
+             
+                /**
+                 * This methods search products by its id
+                 * Return -1 if the product is not found
+                 * @param id - product's id
+                 * @return the index of the product
+                 */
+                public static int getProductIndex(int id) {
+                	for (int i = 0; i < products.size(); i++) {
+
+                        if (products.get(i).getId() == id) {
+                        	return i;}
+                                        
+                	}         
+                	return -1;
+                }                    
+           
+                /**
+                 * This method sets the menu which shows on the screen of the vending machine
+                 * @return a string representation of products menu
+                 */
+                public String getProductMenu() {
+                
+                	String menu = "<-----Menu----->\n";
+
+                    menu += String.format("%10s %15s %10s %10s\n", "ID", "NAME", "PRICE",
+
+                                                    "QUANTITY");
+                    for (Product p : products) {           
+                    	menu += String.format("%10d %15s %10.2f %10d\n", p.getId(),
+
+                                p.getName(), p.getPrice(), p.getQuantity());}
+                    
+                    return menu;
+                }
+
+				
+                         
+
+}//end class
